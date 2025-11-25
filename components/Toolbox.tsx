@@ -163,6 +163,51 @@ export const Toolbox: React.FC<ToolboxProps> = ({
     [GridLayout.STORYBOARD]: 6,
   };
   const maxSpan = maxSpanForLayout[gridLayout];
+  
+  const renderGridPreview = (layout: GridLayout) => {
+    switch (layout) {
+      case GridLayout.STANDARD:
+        return (
+          <div className="grid grid-cols-3 gap-1 w-full h-full">
+            {Array.from({ length: 6 }).map((_, i) => <div key={i} className="bg-gray-500 rounded-sm"></div>)}
+          </div>
+        );
+      case GridLayout.CLASSIC:
+        return (
+          <div className="grid grid-cols-2 gap-1 w-full h-full">
+            {Array.from({ length: 4 }).map((_, i) => <div key={i} className="bg-gray-500 rounded-sm"></div>)}
+          </div>
+        );
+      case GridLayout.VERTICAL:
+        return (
+          <div className="flex flex-col gap-1 w-full h-full p-2">
+            {Array.from({ length: 3 }).map((_, i) => <div key={i} className="bg-gray-500 rounded-sm flex-1"></div>)}
+          </div>
+        );
+      case GridLayout.DYNAMIC:
+        return (
+          <div className="grid grid-cols-4 grid-rows-2 gap-1 w-full h-full">
+            <div className="bg-gray-500 rounded-sm col-span-2"></div>
+            <div className="bg-gray-500 rounded-sm"></div>
+            <div className="bg-gray-500 rounded-sm"></div>
+            <div className="bg-gray-500 rounded-sm"></div>
+            <div className="bg-gray-500 rounded-sm"></div>
+            <div className="bg-gray-500 rounded-sm col-span-2"></div>
+          </div>
+        );
+      case GridLayout.STORYBOARD:
+        return (
+          <div className="grid grid-cols-6 grid-rows-2 gap-1 w-full h-full">
+            <div className="bg-gray-500 rounded-sm col-span-3"></div>
+            <div className="bg-gray-500 rounded-sm col-span-3"></div>
+            <div className="bg-gray-500 rounded-sm col-span-2"></div>
+            <div className="bg-gray-500 rounded-sm col-span-4"></div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
 
 
   return (
@@ -233,6 +278,9 @@ export const Toolbox: React.FC<ToolboxProps> = ({
                        </button>
                      ))}
                    </div>
+                    <div className="mt-3 bg-black/20 border border-gray-700 rounded-lg p-2 h-20 flex items-center justify-center transition-all duration-300">
+                      <div className="w-full h-full p-1">{renderGridPreview(gridLayout)}</div>
+                    </div>
                  </div>
 
                   <div>
